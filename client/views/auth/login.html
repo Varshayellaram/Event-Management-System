@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Login</title>
+  <link rel="stylesheet" href="../../public/css/auth.css" />
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Student Login</h2>
+
+    <form id="loginForm">
+
+      <!-- Email -->
+      <div class="login-field">
+        <label for="loginEmail">Email</label>
+        <input 
+          type="email" 
+          id="loginEmail" 
+          placeholder="Enter your email" 
+          required 
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="login-field">
+        <label for="loginPassword">Password</label>
+        <input 
+          type="password" 
+          id="loginPassword" 
+          placeholder="Enter your password" 
+          required 
+        />
+      </div>
+
+      <!-- Show Password -->
+      <div class="login-show-password">
+        <input type="checkbox" id="showPassword">
+        <label for="showPassword">Show Password</label>
+      </div>
+
+      <!-- Error Message -->
+      <p id="loginError" class="login-error"></p>
+
+      <!-- Submit -->
+      <button type="submit" class="login-btn">Login</button>
+
+    </form>
+
+    <!-- Links -->
+    <div class="login-links">
+      <a href="register.html">Create an account</a>
+      <a href="forgot-password.html">Forgot Password?</a>
+    </div>
+
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById("loginEmail");
+    const passwordInput = document.getElementById("loginPassword");
+    const errorBox = document.getElementById("loginError");
+    const showPassword = document.getElementById("showPassword");
+
+    // Show/Hide password
+    showPassword.addEventListener("change", () => {
+      passwordInput.type = showPassword.checked ? "text" : "password";
+    });
+
+    // Dummy login validation
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!email || !password) {
+        errorBox.innerText = "Please fill in all fields.";
+        return;
+      }
+
+      if (!email.includes("@")) {
+        errorBox.innerText = "Enter a valid email address.";
+        return;
+      }
+
+      if (password.length < 6) {
+        errorBox.innerText = "Password must be at least 6 characters.";
+        return;
+      }
+
+      errorBox.innerText = "";
+
+      alert("Login successful (dummy)");
+      // Later replace with real API redirect:
+      // window.location.href = "../student/dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
