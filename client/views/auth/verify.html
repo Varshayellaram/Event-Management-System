@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Email Verification</title>
+        <link rel="stylesheet" href="../../public/css/auth.css" />
+    </head>
+    <body>
+        <div class="verify-container">
+            <h2>Email Verification</h2>
+
+            <p id="verify-message">Verifying your email, please wait...</p>
+
+            <a href="login.html" id="login-link" style="display:none;">
+            Go to Login
+            </a>
+        </div>
+
+        <script>
+            // Simulate email verification (frontend only)
+            const message = document.getElementById("verify-message");
+            const loginLink = document.getElementById("login-link");
+
+            // Fake delay to look realistic
+            setTimeout(() => {
+            // Later this will come from backend (token validation)
+            const isVerified = true;
+
+            if (isVerified) {
+                message.innerText = "✅ Email verified successfully!";
+                loginLink.style.display = "block";
+            } else {
+                message.innerText = "❌ Email verification failed.";
+            }
+            }, 2000);
+        </script>
+
+    </body>
+</html>

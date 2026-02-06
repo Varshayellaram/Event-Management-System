@@ -1,0 +1,147 @@
+/*This is Verify Page CSS */
+
+.verify-container {
+    width: 350px;
+    margin: 100px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+}
+
+.verify-container h2 {
+    margin-bottom: 15px;
+}
+
+.verify-container a {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 8px 14px;
+    border-radius: 4px;
+}
+
+    /* ===== SIGNUP STYLES ===== */
+
+.signup-container {
+    width: 420px;
+    margin: 60px auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    }
+
+.signup-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+.signup-field {
+    margin-bottom: 12px;
+    }
+
+.signup-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    }
+
+.signup-field input,
+.signup-field select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    }
+
+.signup-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+.signup-error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    }
+
+.signup-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+
+/* ===== LOGIN STYLES ===== */
+
+.login-container {
+    width: 360px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+.login-field {
+    margin-bottom: 15px;
+    }
+
+.login-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    }
+
+.login-field input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    }
+
+.login-show-password {
+    font-size: 14px;
+    margin-bottom: 10px;
+    }
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+.login-error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    }
+
+.login-links {
+    text-align: center;
+    margin-top: 15px;
+    }
+
+.login-links a {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 5px;
+}
