@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="../../public/css/dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h2>Welcome, <span id="studentName">Student</span></h2>
+      <div class="dashboard-header-buttons">
+        <a href="profile.html" class="dashboard-btn">Profile</a>
+        <button id="logoutBtn" class="dashboard-btn logout-btn">Logout</button>
+        
+      </div>
+    </header>
+
+    <!-- Statistics Section -->
+    <section class="dashboard-stats">
+
+      <div class="dashboard-card">
+        <h3 id="totalRegistered">0</h3>
+        <p>Total Registered Events</p>
+      </div>
+
+      <div class="dashboard-card">
+        <h3 id="upcomingCount">0</h3>
+        <p>Upcoming Events</p>
+      </div>
+
+      <div class="dashboard-card">
+        <h3 id="ongoingCount">0</h3>
+        <p>Ongoing Events</p>
+      </div>
+
+      <div class="dashboard-card">
+        <h3 id="completedCount">0</h3>
+        <p>Completed Events</p>
+      </div>
+
+    </section>
+
+    <!-- Events Sections -->
+
+    <section class="dashboard-events">
+      <h3>Upcoming Events</h3>
+      <div id="upcomingEvents" class="event-list">
+        <p>No upcoming events.</p>
+      </div>
+    </section>
+
+    <section class="dashboard-events">
+      <h3>Ongoing Events</h3>
+      <div id="ongoingEvents" class="event-list">
+        <p>No ongoing events.</p>
+      </div>
+    </section>
+
+    <section class="dashboard-events">
+      <h3>Completed Events</h3>
+      <div id="completedEvents" class="event-list">
+        <p>No completed events.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Dummy Data (Later replace with API)
+
+    if (!localStorage.getItem("isLoggedIn")) {
+        window.location.href = "../auth/login.html";
+    }
+
+    const studentName = "Varsha";
+    document.getElementById("studentName").innerText = studentName;
+
+    const events = [
+      { title: "Hackathon 2026", status: "upcoming" },
+      { title: "Web Dev Workshop", status: "ongoing" },
+      { title: "AI Seminar", status: "completed" }
+    ];
+
+    const upcoming = events.filter(e => e.status === "upcoming");
+    const ongoing = events.filter(e => e.status === "ongoing");
+    const completed = events.filter(e => e.status === "completed");
+
+    document.getElementById("totalRegistered").innerText = events.length;
+    document.getElementById("upcomingCount").innerText = upcoming.length;
+    document.getElementById("ongoingCount").innerText = ongoing.length;
+    document.getElementById("completedCount").innerText = completed.length;
+
+    function displayEvents(list, elementId) {
+      const container = document.getElementById(elementId);
+      container.innerHTML = "";
+
+      if (list.length === 0) {
+        container.innerHTML = "<p>No events available.</p>";
+        return;
+      }
+
+      list.forEach(event => {
+        const div = document.createElement("div");
+        div.className = "event-card";
+        div.innerHTML = `
+          <h4>${event.title}</h4>
+          <button onclick="alert('Open event details')">View Details</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+  
+
+
+    displayEvents(upcoming, "upcomingEvents");
+    displayEvents(ongoing, "ongoingEvents");
+    displayEvents(completed, "completedEvents");
+
+    // Logout functionality
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("isLoggedIn");
+    alert("Logged out successfully!");
+    window.location.href = "../auth/login.html";
+    });
+
+
+  </script>
+
+</body>
+</html>
