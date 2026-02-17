@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Details</title>
+  <link rel="stylesheet" href="../../public/css/dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h2>Event Details</h2>
+      <div class="dashboard-header-buttons">
+        <button onclick="goBack()" class="dashboard-btn">Back to Dashboard</button>
+        <button id="logoutBtn" class="dashboard-btn logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <!-- Event Details Section -->
+    <section class="dashboard-card" style="margin-top:20px;">
+
+      <h3 id="eventTitle">Event Title</h3>
+
+      <p><strong>Description:</strong> 
+        <span id="eventDescription"></span>
+      </p>
+
+      <p><strong>Date & Time:</strong> 
+        <span id="eventDate"></span>
+      </p>
+
+      <p><strong>Venue:</strong> 
+        <span id="eventVenue"></span>
+      </p>
+
+      <p><strong>Fee:</strong> 
+        <span id="eventFee"></span>
+      </p>
+
+      <br />
+      <button id="registerBtn" class="dashboard-btn">Register</button>
+
+    </section>
+
+  </div>
+
+  <script>
+    // Protect Page
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "../auth/login.html";
+    }
+
+    // Get Selected Event
+    const selectedEvent = localStorage.getItem("selectedEvent");
+
+    if (!selectedEvent) {
+      alert("No event selected.");
+      window.location.href = "dashboard.html";
+    }
+
+    // Dummy Event Data (Must Match Dashboard Titles)
+    const events = [
+      {
+        title: "Hackathon 2026",
+        description: "24-hour coding competition for students.",
+        date: "20 March 2026, 10:00 AM",
+        venue: "Main Auditorium",
+        fee: "₹200"
+      },
+      {
+        title: "Web Dev Workshop",
+        description: "Hands-on workshop on modern web development.",
+        date: "15 March 2026, 9:00 AM",
+        venue: "Lab 2",
+        fee: "Free"
+      },
+      {
+        title: "AI Seminar",
+        description: "Seminar on Artificial Intelligence trends.",
+        date: "10 March 2026, 11:00 AM",
+        venue: "Seminar Hall",
+        fee: "₹100"
+      }
+    ];
+
+    const event = events.find(e => e.title === selectedEvent);
+
+    if (!event) {
+      alert("Event not found.");
+      window.location.href = "dashboard.html";
+    }
+
+    // Display Event Details
+    document.getElementById("eventTitle").innerText = event.title;
+    document.getElementById("eventDescription").innerText = event.description;
+    document.getElementById("eventDate").innerText = event.date;
+    document.getElementById("eventVenue").innerText = event.venue;
+    document.getElementById("eventFee").innerText = event.fee;
+
+    // Register Button
+    document.getElementById("registerBtn").addEventListener("click", function () {
+      alert("Successfully registered for " + event.title + "!");
+    });
+
+    // Back Function
+    function goBack() {
+      window.location.href = "dashboard.html";
+    }
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("selectedEvent");
+      alert("Logged out successfully!");
+      window.location.href = "../auth/login.html";
+    });
+
+  </script>
+
+</body>
+</html>
