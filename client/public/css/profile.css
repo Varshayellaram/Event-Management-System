@@ -1,0 +1,124 @@
+/* ===== PROFILE PAGE STYLES ===== */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.profile-container {
+  width: 85%;
+  margin: 30px auto;
+}
+
+/* Header */
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.profile-header h2 {
+  margin: 0;
+}
+
+.profile-back-btn {
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Sections */
+.profile-section {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.profile-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+/* Form Fields */
+.profile-field {
+  margin-bottom: 15px;
+}
+
+.profile-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.profile-field input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Buttons */
+.profile-edit-btn,
+.profile-save-btn,
+.profile-update-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.profile-edit-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.profile-save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.profile-update-btn {
+  background-color: #17a2b8;
+  color: white;
+}
+
+/* Events & Results Cards */
+.profile-event-list,
+.profile-result-list {
+  margin-top: 10px;
+}
+
+.profile-event-card,
+.profile-result-card {
+  background-color: #f8f9fa;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #007bff;
+}
+
+.profile-event-card h4,
+.profile-result-card h4 {
+  margin: 0 0 5px 0;
+}
+
+.profile-event-card p,
+.profile-result-card p {
+  margin: 0;
+  font-size: 14px;
+}

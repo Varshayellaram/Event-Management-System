@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Profile</title>
+  <link rel="stylesheet" href="../../public/css/profile.css">
+</head>
+<body>
+
+  <div class="profile-container">
+
+    <!-- Header -->
+    <header class="profile-header">
+      <h2>Student Profile</h2>
+      <a href="dashboard.html" class="profile-back-btn">← Back to Dashboard</a>
+    </header>
+
+    <!-- Profile Information Section -->
+    <section class="profile-section">
+      <h3>Personal Information</h3>
+
+      <form id="profileForm">
+
+        <div class="profile-field">
+          <label>Full Name</label>
+          <input type="text" id="profileName" value="Student Name" disabled>
+        </div>
+
+        <div class="profile-field">
+          <label>Email</label>
+          <input type="email" id="profileEmail" value="student@email.com" disabled>
+        </div>
+
+        <div class="profile-field">
+          <label>Roll Number</label>
+          <input type="text" id="profileRoll" value="12345" disabled>
+        </div>
+
+        <div class="profile-field">
+          <label>College</label>
+          <input type="text" id="profileCollege" value="ABC College" disabled>
+        </div>
+
+        <div class="profile-field">
+          <label>Branch</label>
+          <input type="text" id="profileBranch" value="CSE" disabled>
+        </div>
+
+        <div class="profile-field">
+          <label>Year</label>
+          <input type="text" id="profileYear" value="3" disabled>
+        </div>
+
+        <div class="profile-field">
+          <label>Mobile</label>
+          <input type="tel" id="profilePhone" value="9876543210" disabled>
+        </div>
+
+        <button type="button" class="profile-edit-btn" onclick="enableEdit()">Edit Profile</button>
+        <button type="submit" class="profile-save-btn" style="display:none;">Save Changes</button>
+
+      </form>
+    </section>
+
+    <!-- Update Password Section -->
+    <section class="profile-section">
+      <h3>Update Password</h3>
+
+      <form id="passwordForm">
+
+        <div class="profile-field">
+          <label>Current Password</label>
+          <input type="password" required>
+        </div>
+
+        <div class="profile-field">
+          <label>New Password</label>
+          <input type="password" required>
+        </div>
+
+        <div class="profile-field">
+          <label>Confirm New Password</label>
+          <input type="password" required>
+        </div>
+
+        <button type="submit" class="profile-update-btn">Update Password</button>
+
+      </form>
+    </section>
+
+    <!-- Registered Events Section -->
+    <section class="profile-section">
+      <h3>Registered Events</h3>
+
+      <div class="profile-event-list">
+        <div class="profile-event-card">
+          <h4>Hackathon 2026</h4>
+          <p>Status: Upcoming</p>
+        </div>
+
+        <div class="profile-event-card">
+          <h4>Web Development Workshop</h4>
+          <p>Status: Completed</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Results Section -->
+    <section class="profile-section">
+      <h3>Event Results</h3>
+
+      <div class="profile-result-list">
+        <div class="profile-result-card">
+          <h4>Web Development Workshop</h4>
+          <p>Result: Participation Certificate</p>
+        </div>
+
+        <div class="profile-result-card">
+          <h4>AI Seminar</h4>
+          <p>Result: Winner</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function enableEdit() {
+      const inputs = document.querySelectorAll("#profileForm input");
+      inputs.forEach(input => input.disabled = false);
+
+      document.querySelector(".profile-edit-btn").style.display = "none";
+      document.querySelector(".profile-save-btn").style.display = "inline-block";
+    }
+
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Profile updated successfully (dummy).");
+      location.reload();
+    });
+
+    document.getElementById("passwordForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Password updated successfully (dummy).");
+    });
+  </script>
+
+</body>
+</html>
