@@ -70,66 +70,70 @@
   </div>
 
   <script>
-    // Dummy Data (Later replace with API)
+  // Protect Page
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "../auth/login.html";
+  }
 
-    if (!localStorage.getItem("isLoggedIn")) {
-        window.location.href = "../auth/login.html";
+  const studentName = "Varsha";
+  document.getElementById("studentName").innerText = studentName;
+
+  // Events with ID
+  const events = [
+    { id: 1, title: "Hackathon 2026", status: "upcoming" },
+    { id: 2, title: "Web Dev Workshop", status: "ongoing" },
+    { id: 3, title: "AI Seminar", status: "completed" }
+  ];
+
+  const upcoming = events.filter(e => e.status === "upcoming");
+  const ongoing = events.filter(e => e.status === "ongoing");
+  const completed = events.filter(e => e.status === "completed");
+
+  document.getElementById("totalRegistered").innerText = events.length;
+  document.getElementById("upcomingCount").innerText = upcoming.length;
+  document.getElementById("ongoingCount").innerText = ongoing.length;
+  document.getElementById("completedCount").innerText = completed.length;
+
+  function displayEvents(list, elementId) {
+    const container = document.getElementById(elementId);
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+      container.innerHTML = "<p>No events available.</p>";
+      return;
     }
 
-    const studentName = "Varsha";
-    document.getElementById("studentName").innerText = studentName;
+    list.forEach(event => {
+      const div = document.createElement("div");
+      div.className = "event-card";
+      div.innerHTML = `
+        <h4>${event.title}</h4>
+        <button onclick="openEventDetails(${event.id})">
+          View Details
+        </button>
+      `;
+      container.appendChild(div);
+    });
+  }
 
-    const events = [
-      { title: "Hackathon 2026", status: "upcoming" },
-      { title: "Web Dev Workshop", status: "ongoing" },
-      { title: "AI Seminar", status: "completed" }
-    ];
+  function openEventDetails(id) {
+    localStorage.setItem("selectedEventId", id);
+    window.location.href = "event-details.html";
+  }
 
-    const upcoming = events.filter(e => e.status === "upcoming");
-    const ongoing = events.filter(e => e.status === "ongoing");
-    const completed = events.filter(e => e.status === "completed");
+  displayEvents(upcoming, "upcomingEvents");
+  displayEvents(ongoing, "ongoingEvents");
+  displayEvents(completed, "completedEvents");
 
-    document.getElementById("totalRegistered").innerText = events.length;
-    document.getElementById("upcomingCount").innerText = upcoming.length;
-    document.getElementById("ongoingCount").innerText = ongoing.length;
-    document.getElementById("completedCount").innerText = completed.length;
-
-    function displayEvents(list, elementId) {
-      const container = document.getElementById(elementId);
-      container.innerHTML = "";
-
-      if (list.length === 0) {
-        container.innerHTML = "<p>No events available.</p>";
-        return;
-      }
-
-      list.forEach(event => {
-        const div = document.createElement("div");
-        div.className = "event-card";
-        div.innerHTML = `
-          <h4>${event.title}</h4>
-          <button onclick="alert('Open event details')">View Details</button>
-        `;
-        container.appendChild(div);
-      });
-    }
-
-  
-
-
-    displayEvents(upcoming, "upcomingEvents");
-    displayEvents(ongoing, "ongoingEvents");
-    displayEvents(completed, "completedEvents");
-
-    // Logout functionality
-    document.getElementById("logoutBtn").addEventListener("click", function () {
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", function () {
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("selectedEventId");
     alert("Logged out successfully!");
     window.location.href = "../auth/login.html";
-    });
+  });
+</script>
 
-
-  </script>
 
 </body>
 </html>

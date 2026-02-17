@@ -93,11 +93,13 @@
       errorBox.innerText = "";
 
       
-      alert("Login successful! Redirecting to dashboard...");
-
-      window.location.href = "../student/dashboard.html";
+      
       // Later replace with real API redirect:
       // window.location.href = "../student/dashboard.html";
+
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "../student/dashboard.html";
+
     });
   </script>
 

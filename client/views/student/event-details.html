@@ -47,77 +47,79 @@
   </div>
 
   <script>
-    // Protect Page
-    if (!localStorage.getItem("isLoggedIn")) {
-      window.location.href = "../auth/login.html";
+  // Protect Page
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "../auth/login.html";
+  }
+
+  const selectedEventId = parseInt(localStorage.getItem("selectedEventId"));
+
+  if (!selectedEventId) {
+    alert("No event selected.");
+    window.location.href = "dashboard.html";
+  }
+
+  // Events Data (Must match dashboard IDs)
+  const events = [
+    {
+      id: 1,
+      title: "Hackathon 2026",
+      description: "24-hour coding competition for students.",
+      date: "20 March 2026, 10:00 AM",
+      venue: "Main Auditorium",
+      fee: "₹200"
+    },
+    {
+      id: 2,
+      title: "Web Dev Workshop",
+      description: "Hands-on workshop on modern web development.",
+      date: "15 March 2026, 9:00 AM",
+      venue: "Lab 2",
+      fee: "Free"
+    },
+    {
+      id: 3,
+      title: "AI Seminar",
+      description: "Seminar on Artificial Intelligence trends.",
+      date: "10 March 2026, 11:00 AM",
+      venue: "Seminar Hall",
+      fee: "₹100"
     }
+  ];
 
-    // Get Selected Event
-    const selectedEvent = localStorage.getItem("selectedEvent");
+  const event = events.find(e => e.id === selectedEventId);
 
-    if (!selectedEvent) {
-      alert("No event selected.");
-      window.location.href = "dashboard.html";
-    }
+  if (!event) {
+    alert("Event not found.");
+    window.location.href = "dashboard.html";
+  }
 
-    // Dummy Event Data (Must Match Dashboard Titles)
-    const events = [
-      {
-        title: "Hackathon 2026",
-        description: "24-hour coding competition for students.",
-        date: "20 March 2026, 10:00 AM",
-        venue: "Main Auditorium",
-        fee: "₹200"
-      },
-      {
-        title: "Web Dev Workshop",
-        description: "Hands-on workshop on modern web development.",
-        date: "15 March 2026, 9:00 AM",
-        venue: "Lab 2",
-        fee: "Free"
-      },
-      {
-        title: "AI Seminar",
-        description: "Seminar on Artificial Intelligence trends.",
-        date: "10 March 2026, 11:00 AM",
-        venue: "Seminar Hall",
-        fee: "₹100"
-      }
-    ];
+  // Display Event Details
+  document.getElementById("eventTitle").innerText = event.title;
+  document.getElementById("eventDescription").innerText = event.description;
+  document.getElementById("eventDate").innerText = event.date;
+  document.getElementById("eventVenue").innerText = event.venue;
+  document.getElementById("eventFee").innerText = event.fee;
 
-    const event = events.find(e => e.title === selectedEvent);
+  // Register
+  document.getElementById("registerBtn").addEventListener("click", function () {
+    alert("Successfully registered for " + event.title + "!");
+  });
 
-    if (!event) {
-      alert("Event not found.");
-      window.location.href = "dashboard.html";
-    }
+  // Back
+  function goBack() {
+    window.location.href = "dashboard.html";
+  }
 
-    // Display Event Details
-    document.getElementById("eventTitle").innerText = event.title;
-    document.getElementById("eventDescription").innerText = event.description;
-    document.getElementById("eventDate").innerText = event.date;
-    document.getElementById("eventVenue").innerText = event.venue;
-    document.getElementById("eventFee").innerText = event.fee;
+  // Logout
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("selectedEventId");
+    alert("Logged out successfully!");
+    window.location.href = "../auth/login.html";
+  });
+</script>
 
-    // Register Button
-    document.getElementById("registerBtn").addEventListener("click", function () {
-      alert("Successfully registered for " + event.title + "!");
-    });
-
-    // Back Function
-    function goBack() {
-      window.location.href = "dashboard.html";
-    }
-
-    // Logout
-    document.getElementById("logoutBtn").addEventListener("click", function () {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("selectedEvent");
-      alert("Logged out successfully!");
-      window.location.href = "../auth/login.html";
-    });
-
-  </script>
 
 </body>
 </html>
