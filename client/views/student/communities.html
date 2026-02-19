@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Communities</title>
+  <link rel="stylesheet" href="../../public/css/dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h2>Student Communities</h2>
+      <div class="dashboard-header-buttons">
+        <button onclick="goToDashboard()" class="dashboard-btn">
+          Back to Dashboard
+        </button>
+        <button id="logoutBtn" class="dashboard-btn logout-btn">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Communities Section -->
+    <section class="dashboard-events">
+      <div id="communitiesContainer" class="event-list">
+        <p>Loading communities...</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // 🔐 Protect Page
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "../auth/login.html";
+    }
+
+    // Dummy Communities Data
+    const communities = [
+      {
+        id: 1,
+        name: "Coding Club",
+        description: "A community for programming enthusiasts."
+      },
+      {
+        id: 2,
+        name: "AI & ML Group",
+        description: "Explore Artificial Intelligence and Machine Learning."
+      },
+      {
+        id: 3,
+        name: "Web Developers",
+        description: "Learn and build modern web applications."
+      }
+    ];
+
+    function loadCommunities() {
+      const container = document.getElementById("communitiesContainer");
+      container.innerHTML = "";
+
+      let joinedCommunities = JSON.parse(localStorage.getItem("joinedCommunities")) || [];
+
+      communities.forEach(comm => {
+        const div = document.createElement("div");
+        div.className = "event-card";
+
+        const isJoined = joinedCommunities.includes(comm.id);
+
+        div.innerHTML = `
+          <h4>${comm.name}</h4>
+          <p>${comm.description}</p>
+          <button 
+            onclick="joinCommunity(${comm.id})"
+            class="dashboard-btn"
+            id="btn-${comm.id}"
+            ${isJoined ? "disabled style='background-color:gray;'" : ""}
+          >
+            ${isJoined ? "Joined" : "Join"}
+          </button>
+          <p id="msg-${comm.id}" style="margin-top:8px; font-weight:bold; color:${isJoined ? "green" : "red"};">
+            ${isJoined ? "You have joined this community." : ""}
+          </p>
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    function joinCommunity(id) {
+      let joinedCommunities = JSON.parse(localStorage.getItem("joinedCommunities")) || [];
+
+      if (!joinedCommunities.includes(id)) {
+        joinedCommunities.push(id);
+        localStorage.setItem("joinedCommunities", JSON.stringify(joinedCommunities));
+      }
+
+      loadCommunities(); // Refresh UI
+    }
+
+    function goToDashboard() {
+      window.location.href = "dashboard.html";
+    }
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "../auth/login.html";
+    });
+
+    // Load communities on page load
+    loadCommunities();
+
+  </script>
+
+</body>
+</html>
