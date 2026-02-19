@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Event Results</title>
+  <link rel="stylesheet" href="../../public/css/dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-container">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <h2>My Event Results</h2>
+      <div class="dashboard-header-buttons">
+        <button onclick="goToDashboard()" class="dashboard-btn">
+          Back to Dashboard
+        </button>
+        <button id="logoutBtn" class="dashboard-btn logout-btn">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Results Section -->
+    <section class="dashboard-events">
+      <div id="resultsContainer" class="event-list">
+        <p>Loading results...</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // 🔐 Protect Page
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "../auth/login.html";
+    }
+
+    // Dummy Results Data (Later replace with backend API)
+    const results = [
+      {
+        id: 1,
+        title: "Hackathon 2026",
+        status: "Won",
+        position: "1st Place"
+      },
+      {
+        id: 2,
+        title: "Web Dev Workshop",
+        status: "Participated",
+        position: "-"
+      },
+      {
+        id: 3,
+        title: "AI Seminar",
+        status: "Not Selected",
+        position: "-"
+      }
+    ];
+
+    function displayResults() {
+      const container = document.getElementById("resultsContainer");
+      container.innerHTML = "";
+
+      if (results.length === 0) {
+        container.innerHTML = "<p>No results available.</p>";
+        return;
+      }
+
+      results.forEach(result => {
+        const div = document.createElement("div");
+        div.className = "event-card";
+        div.innerHTML = `
+          <h4>${result.title}</h4>
+          <p><strong>Status:</strong> ${result.status}</p>
+          <p><strong>Position:</strong> ${result.position}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function goToDashboard() {
+      window.location.href = "dashboard.html";
+    }
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+      localStorage.removeItem("isLoggedIn");
+      alert("Logged out successfully!");
+      window.location.href = "../auth/login.html";
+    });
+
+    // Load Results on Page Load
+    displayResults();
+  </script>
+
+</body>
+</html>
