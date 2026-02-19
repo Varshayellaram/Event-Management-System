@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>All Events</title>
+  <title>My Registered Events</title>
   <link rel="stylesheet" href="../../public/css/dashboard.css" />
 </head>
 <body>
@@ -11,7 +11,7 @@
 
     <!-- Header -->
     <header class="dashboard-header">
-      <h2>All Events</h2>
+      <h2>My Registered Events</h2>
       <div class="dashboard-header-buttons">
         <button onclick="goToDashboard()" class="dashboard-btn">
           Back to Dashboard
@@ -22,18 +22,10 @@
       </div>
     </header>
 
-    <!-- Filter Section -->
-    <section class="dashboard-stats" style="margin-bottom:20px;">
-      <button class="dashboard-btn" onclick="filterEvents('all')">All</button>
-      <button class="dashboard-btn" onclick="filterEvents('upcoming')">Upcoming</button>
-      <button class="dashboard-btn" onclick="filterEvents('ongoing')">Ongoing</button>
-      <button class="dashboard-btn" onclick="filterEvents('completed')">Completed</button>
-    </section>
-
-    <!-- Events List -->
+    <!-- Events Section -->
     <section class="dashboard-events">
-      <div id="eventsContainer" class="event-list">
-        <p>Loading events...</p>
+      <div id="myEventsContainer" class="event-list">
+        <p>Loading registered events...</p>
       </div>
     </section>
 
@@ -45,53 +37,51 @@
       window.location.href = "../auth/login.html";
     }
 
-    // Dummy Events Data (Same ID System as Dashboard)
+    // Same Events Data (must match other pages)
     const events = [
       {
         id: 1,
         title: "Hackathon 2026",
-        description: "24-hour coding competition.",
         date: "20 March 2026",
         venue: "Main Auditorium",
-        fee: "₹200",
         status: "upcoming"
       },
       {
         id: 2,
         title: "Web Dev Workshop",
-        description: "Modern web development workshop.",
         date: "15 March 2026",
         venue: "Lab 2",
-        fee: "Free",
         status: "ongoing"
       },
       {
         id: 3,
         title: "AI Seminar",
-        description: "Artificial Intelligence seminar.",
         date: "10 March 2026",
         venue: "Seminar Hall",
-        fee: "₹100",
         status: "completed"
       }
     ];
 
-    // Display Events
-    function displayEvents(list) {
-      const container = document.getElementById("eventsContainer");
+    function loadRegisteredEvents() {
+      const container = document.getElementById("myEventsContainer");
       container.innerHTML = "";
 
-      if (list.length === 0) {
-        container.innerHTML = "<p>No events available.</p>";
+      const registeredEvents = JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+      if (registeredEvents.length === 0) {
+        container.innerHTML = "<p>You have not registered for any events yet.</p>";
         return;
       }
 
-      list.forEach(event => {
+      const myEvents = events.filter(event => registeredEvents.includes(event.id));
+
+      myEvents.forEach(event => {
         const div = document.createElement("div");
         div.className = "event-card";
         div.innerHTML = `
           <h4>${event.title}</h4>
           <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Venue:</strong> ${event.venue}</p>
           <p><strong>Status:</strong> ${event.status}</p>
           <button onclick="openEventDetails(${event.id})">
             View Details
@@ -101,23 +91,11 @@
       });
     }
 
-    // Filter Function
-    function filterEvents(status) {
-      if (status === "all") {
-        displayEvents(events);
-      } else {
-        const filtered = events.filter(e => e.status === status);
-        displayEvents(filtered);
-      }
-    }
-
-    // Open Event Details
     function openEventDetails(id) {
       localStorage.setItem("selectedEventId", id);
       window.location.href = "event-details.html";
     }
 
-    // Navigation
     function goToDashboard() {
       window.location.href = "dashboard.html";
     }
@@ -125,13 +103,11 @@
     // Logout
     document.getElementById("logoutBtn").addEventListener("click", function () {
       localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("selectedEventId");
       alert("Logged out successfully!");
       window.location.href = "../auth/login.html";
     });
 
-    // Load All Events Initially
-    displayEvents(events);
+    loadRegisteredEvents();
   </script>
 
 </body>

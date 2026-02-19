@@ -41,6 +41,8 @@
 
       <br />
       <button id="registerBtn" class="dashboard-btn">Register</button>
+      <p id="registrationMessage" style="margin-top:10px; font-weight:bold;"></p>
+
 
     </section>
 
@@ -102,9 +104,42 @@
   document.getElementById("eventFee").innerText = event.fee;
 
   // Register
-  document.getElementById("registerBtn").addEventListener("click", function () {
-    alert("Successfully registered for " + event.title + "!");
+
+
+  const registerBtn = document.getElementById("registerBtn");
+  const message = document.getElementById("registrationMessage");
+
+  let registeredEvents = JSON.parse(localStorage.getItem("registeredEvents")) || [];
+
+  // If already registered when page loads
+  if (registeredEvents.includes(event.id)) {
+    registerBtn.innerText = "Registered";
+    registerBtn.disabled = true;
+    registerBtn.style.backgroundColor = "gray";
+    message.innerHTML = "<span style='color:red;'>You have already registered for this event.</span>";
+  }
+
+  registerBtn.addEventListener("click", function () {
+
+    if (registeredEvents.includes(event.id)) {
+      message.innerHTML = "<span style='color:red;'>You have already registered for this event.</span>";
+      return;
+    }
+
+    registeredEvents.push(event.id);
+    localStorage.setItem("registeredEvents", JSON.stringify(registeredEvents));
+
+    registerBtn.innerText = "Registered";
+    registerBtn.disabled = true;
+    registerBtn.style.backgroundColor = "gray";
+    
+
+    message.innerHTML = "<span style='color:green;'>Successfully registered for this event.</span>";
   });
+
+
+
+
 
   // Back
   function goBack() {
